@@ -5,14 +5,22 @@ public class JogoDaVelha {
     private static int jogadas = 0;
 
     private static void mostrarTabuleiro() {
+        System.out.println("   1   2   3");
         for(int linha = 0; linha < 3; linha++) {
+            if(linha != 0) {
+                System.out.println("  ---+---+---");
+            }
+            System.out.print((linha + 1) + " ");
             for (int coluna = 0; coluna < 3; coluna++) {
                 if (tabuleiro[linha][coluna] == 1) {
-                    System.out.print("|X|");
+                    System.out.print(" X ");
                 } else if (tabuleiro[linha][coluna] == 2) {
-                    System.out.print("|O|");
+                    System.out.print(" O ");
                 } else {
-                    System.out.print("| |");
+                    System.out.print("   ");
+                }
+                if(coluna != 2) {
+                    System.out.print("|");
                 }
             }
             System.out.println();
@@ -31,17 +39,18 @@ public class JogoDaVelha {
     private static void pedirJogada(int jogador) {
         while(true) {
             int linha, coluna;
-            System.out.println("Vez do jogador" + jogador);
+            System.out.println("Vez do jogador " + (jogador == 1 ? "X" : "O"));
             do {
                 System.out.print("Linha: ");
                 linha = scan.nextInt();
-            } while(linha < 0 || linha > 2);
+            } while(linha < 1 || linha > 3);
 
             do {
                 System.out.print("coluna: ");
                 coluna = scan.nextInt();
-            } while(coluna < 0 || coluna > 2);
-
+            } while(coluna < 1 || coluna > 3);
+            linha--;
+            coluna--;
             if(tabuleiro[linha][coluna] == 0) {
                 tabuleiro[linha][coluna] = jogador;
                 break;
@@ -49,6 +58,7 @@ public class JogoDaVelha {
                 System.out.print("JOGADADA INVALIDA!\n");
             }
         }
+        jogadas++;
     }
 
     private static int finished() {
@@ -86,7 +96,9 @@ public class JogoDaVelha {
                 for (int jogador = 1; jogador <= 2; jogador++) {
                     mostrarTabuleiro();
                     pedirJogada(jogador);
+                    System.out.println();
                     if (finished() > -1) {
+                        mostrarTabuleiro();
                         break;
                     } 
                 }
@@ -95,12 +107,12 @@ public class JogoDaVelha {
             if(win == 0) {
                 System.out.println("JOGO EMPATADO!");
             } else {
-                System.out.println("O jogador " + win + " VENCEU");
+                System.out.println("\nO jogador " + (win == 1 ? "X" : "O") + " VENCEU!");
             }
-            System.out.println("Voce quer jogador denovo? ");
-            String resp;
-            resp = scan.nextLine();
-            if(resp != "s" || resp != "S") {
+            System.out.println("\nVoce quer jogador denovo? (S | n)");
+            scan.nextLine();
+            String resp = scan.nextLine();
+            if(!resp.equalsIgnoreCase("s")) {
                 break;
             }
         }
