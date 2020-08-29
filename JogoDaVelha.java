@@ -1,4 +1,6 @@
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 public class JogoDaVelha {
     private static int[][] tabuleiro = new int[3][3];
     private static Scanner scan = new Scanner(System.in);
@@ -105,14 +107,13 @@ public class JogoDaVelha {
             }
             int win = finished();
             if(win == 0) {
-                System.out.println("JOGO EMPATADO!");
+                JOptionPane.showMessageDialog(null,"Deu Veia!");
             } else {
-                System.out.println("\nO jogador " + (win == 1 ? "X" : "O") + " VENCEU!");
+                JOptionPane.showMessageDialog(null,"O jogador " + (win == 1 ? "X" : "O") + " VENCEU!");
             }
-            System.out.println("\nVoce quer jogador denovo? (S | n)");
-            scan.nextLine();
-            String resp = scan.nextLine();
-            if(!resp.equalsIgnoreCase("s")) {
+            Object[] options = {"Sim", "Nao"};
+            int resp = JOptionPane.showOptionDialog(null, "Voce quer jogar denovo? ", "Jogo da Velha", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[0]);
+            if(resp != JOptionPane.YES_OPTION) {
                 break;
             }
         }

@@ -1,4 +1,2 @@
 # jogo-da-velha
-Jogo da velha em java
-
-Eu juro que termino isso, só me da um tempo.
+Jogo da velha em java, feito com carinho.
